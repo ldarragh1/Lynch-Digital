@@ -6,6 +6,6 @@
   <circle cx="14" cy="22" r="1.5" fill="white"/>
 
   <!-- Wordmark -->
-  <text x="38" y="29" font-family="Inter, -apple-system, sans-serif" font-weight="800" font-size="18" fill="#0F172A" letter-spacing="-0.5">Lynch</text>
+  <text x="38" y="29" font-family="Inter, -apple-system, sans-serif" font-weight="800" font-size="18" fill="#FFFFFF" letter-spacing="-0.5">Lynch</text>
   <text x="96" y="29" font-family="Inter, -apple-system, sans-serif" font-weight="400" font-size="18" fill="#2563EB" letter-spacing="-0.3">Digital</text>
 </svg>
