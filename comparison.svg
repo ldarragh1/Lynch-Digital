@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0F172A"/>
+
+  <!-- Subtle grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E293B" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- Top accent -->
+  <rect width="800" height="3" fill="#2563EB"/>
+
+  <!-- Heading -->
+  <text x="400" y="60" font-family="Inter, -apple-system, sans-serif" font-weight="800" font-size="26" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.5">Why own your booking system?</text>
+
+  <!-- LEFT CARD — Third Party Platform -->
+  <rect x="40" y="90" width="330" height="360" rx="16" fill="#1E293B"/>
+  <rect x="40" y="90" width="330" height="4" rx="2" fill="#EF4444"/>
+
+  <text x="205" y="140" font-family="Inter, -apple-system, sans-serif" font-weight="700" font-size="18" fill="#EF4444" text-anchor="middle">Third Party Platform</text>
+
+  <!-- Items -->
+  <text x="68" y="185" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#EF4444">✕</text>
+  <text x="100" y="185" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">€1–2 charge per cover</text>
+
+  <text x="68" y="225" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#EF4444">✕</text>
+  <text x="100" y="225" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">€800+ per month on 400 covers</text>
+
+  <text x="68" y="265" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#EF4444">✕</text>
+  <text x="100" y="265" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Their branding, not yours</text>
+
+  <text x="68" y="305" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#EF4444">✕</text>
+  <text x="100" y="305" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Customers leave your website</text>
+
+  <text x="68" y="345" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#EF4444">✕</text>
+  <text x="100" y="345" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Fees increase as you grow</text>
+
+  <!-- RIGHT CARD — Lynch Digital -->
+  <rect x="430" y="90" width="330" height="360" rx="16" fill="#172554"/>
+  <rect x="430" y="90" width="330" height="4" rx="2" fill="#2563EB"/>
+
+  <!-- Lynch Digital label -->
+  <rect x="510" y="118" width="170" height="36" rx="18" fill="#2563EB"/>
+  <text x="595" y="141" font-family="Inter, -apple-system, sans-serif" font-weight="700" font-size="15" fill="#FFFFFF" text-anchor="middle">Lynch Digital</text>
+
+  <!-- Items -->
+  <text x="458" y="185" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#22C55E">✓</text>
+  <text x="490" y="185" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Flat monthly fee — no per cover charge</text>
+
+  <text x="458" y="225" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#22C55E">✓</text>
+  <text x="490" y="225" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Fraction of third party costs</text>
+
+  <text x="458" y="265" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#22C55E">✓</text>
+  <text x="490" y="265" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Your branding throughout</text>
+
+  <text x="458" y="305" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#22C55E">✓</text>
+  <text x="490" y="305" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Customers stay on your website</text>
+
+  <text x="458" y="345" font-family="Inter, -apple-system, sans-serif" font-size="22" fill="#22C55E">✓</text>
+  <text x="490" y="345" font-family="Inter, -apple-system, sans-serif" font-size="14" fill="#94A3B8">Fixed cost no matter how busy you get</text>
+
+  <!-- VS circle -->
+  <circle cx="400" cy="270" r="28" fill="#0F172A" stroke="#1E293B" stroke-width="2"/>
+  <text x="400" y="276" font-family="Inter, -apple-system, sans-serif" font-weight="800" font-size="16" fill="#FFFFFF" text-anchor="middle">VS</text>
+
+  <!-- Bottom -->
+  <text x="400" y="475" font-family="Inter, -apple-system, sans-serif" font-size="13" fill="rgba(255,255,255,0.3)" text-anchor="middle">lynchdigital.ie</text>
+</svg>

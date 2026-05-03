@@ -618,6 +618,41 @@ section { padding: 96px 0; }
   text-align: center;
 }
 
+/* ── DASHBOARDS ── */
+.dashboards {
+  padding: 96px 0;
+  background: var(--bg);
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+.dashboard-item {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(15,23,42,0.12);
+}
+.dashboard-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.dashboard-cta {
+  text-align: center;
+  margin-top: 48px;
+}
+.dashboard-cta p {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+@media (max-width: 768px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
 /* ── FOOTER ── */
 .footer {
   background: var(--dark);

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" fill="none">
+  <!-- Background -->
+  <rect width="600" height="200" fill="#0F172A"/>
+
+  <!-- Subtle top border -->
+  <rect width="600" height="1" y="0" fill="#1E293B"/>
+
+  <!-- Content centered -->
+  <text x="300" y="85" font-family="Inter, -apple-system, sans-serif" font-weight="400" font-size="13" fill="rgba(255,255,255,0.35)" text-anchor="middle" letter-spacing="2">POWERED BY</text>
+
+  <!-- Logo icon -->
+  <rect x="224" y="100" width="32" height="32" rx="7" fill="#2563EB"/>
+  <path d="M233 110 L228 116 L233 122" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M247 110 L252 116 L247 122" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="240" cy="116" r="2.5" fill="white"/>
+
+  <!-- Lynch Digital wordmark -->
+  <text x="264" y="122" font-family="Inter, -apple-system, sans-serif" font-weight="800" font-size="26" fill="#FFFFFF" letter-spacing="-0.5">Lynch</text>
+  <text x="336" y="122" font-family="Inter, -apple-system, sans-serif" font-weight="400" font-size="26" fill="#2563EB" letter-spacing="-0.5">Digital</text>
+
+  <!-- lynchdigital.ie -->
+  <text x="300" y="158" font-family="Inter, -apple-system, sans-serif" font-weight="400" font-size="12" fill="rgba(255,255,255,0.25)" text-anchor="middle" letter-spacing="1">lynchdigital.ie</text>
+</svg>
