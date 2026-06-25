@@ -415,6 +415,74 @@ section { padding: 96px 0; }
   font-weight: 700;
 }
 
+/* ── PROCESS ── */
+.process { background: var(--bg-alt); }
+.process-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+.process-step {
+  flex: 1;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  text-align: center;
+  position: relative;
+  transition: box-shadow .3s, transform .3s;
+}
+.process-step:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.process-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.process-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--accent-light);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--accent);
+}
+.process-icon svg { width: 30px; height: 30px; }
+.process-step h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+.process-step p {
+  font-size: 15px;
+  color: var(--soft);
+  line-height: 1.7;
+}
+.process-connector {
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  opacity: 0.4;
+  margin-top: -8px;
+  align-self: center;
+}
+.process-connector svg { width: 40px; height: 24px; }
+@media (max-width: 768px) {
+  .process-steps { flex-direction: column; gap: 16px; }
+  .process-connector { transform: rotate(90deg); align-self: center; }
+}
+
 /* ── WHY ── */
 .why { background: var(--dark); }
 .why .section-header h2 { color: #fff; }
@@ -432,7 +500,18 @@ section { padding: 96px 0; }
   transition: background .2s;
 }
 .why-card:hover { background: rgba(255,255,255,0.07); }
-.why-icon { font-size: 28px; margin-bottom: 16px; }
+.why-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #93C5FD;
+  margin-bottom: 18px;
+}
+.why-icon svg { width: 22px; height: 22px; }
 .why-card h4 {
   font-size: 17px;
   font-weight: 700;
