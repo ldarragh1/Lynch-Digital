@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connacht Builders — Premium Construction</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --yellow: #F5A623;
+      --dark: #1A1A1A;
+      --mid: #2C2C2C;
+      --light: #F4F0EB;
+      --text: #3D3D3D;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 70px;
+      background: rgba(26,26,26,0.95);
+      backdrop-filter: blur(10px);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--dark) !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--dark);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 80px;
+      max-width: 700px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+    .hero h1 span { color: var(--yellow); }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s 0.6s forwards;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s 0.8s forwards;
+    }
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 16px 32px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.4); }
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 48px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      gap: 0;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.6s 1.1s forwards;
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 24px 32px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--yellow);
+      display: block;
+    }
+    .hero-stat .label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ---- SCROLL REVEAL BASE ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ---- SERVICES ---- */
+    .section { padding: 100px 80px; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: #666;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 40px 32px;
+      border: 1px solid #E8E3DC;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border-color: var(--yellow);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: #FFF5E0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+    }
+    .service-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .service-card p { font-size: 0.9rem; color: #777; line-height: 1.7; }
+
+    /* ---- ABOUT STRIP ---- */
+    .about {
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .about-image {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+    }
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent, var(--dark));
+    }
+    .about-content {
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-content .section-title { color: #fff; }
+    .about-content .section-sub { color: rgba(255,255,255,0.6); }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .check-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+    }
+    .check-list li::before {
+      content: '✓';
+      width: 24px;
+      height: 24px;
+      background: var(--yellow);
+      color: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    /* ---- PROJECTS ---- */
+    .projects { background: #fff; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .project-card {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover img { transform: scale(1.08); }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,26,26,0.9) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-info h4 { color: #fff; font-size: 1rem; font-weight: 800; }
+    .project-info p { color: rgba(255,255,255,0.6); font-size: 0.8rem; }
+
+    /* ---- PROCESS ---- */
+    .process { background: var(--light); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: linear-gradient(to right, var(--yellow), var(--yellow));
+    }
+    .process-step { padding: 0 24px; text-align: center; }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      background: var(--yellow);
+      color: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .process-step h4 { font-size: 1rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+    .process-step p { font-size: 0.85rem; color: #777; line-height: 1.6; }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      background: var(--yellow);
+      padding: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .cta-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      color: var(--dark);
+      max-width: 520px;
+    }
+    .btn-dark {
+      background: var(--dark);
+      color: #fff;
+      padding: 18px 40px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.2s;
+    }
+    .btn-dark:hover { transform: translateY(-2px); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      padding: 40px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    footer .nav-logo { font-size: 1.1rem; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* stagger delays for grid items */
+    .stagger-1 { transition-delay: 0.05s; }
+    .stagger-2 { transition-delay: 0.15s; }
+    .stagger-3 { transition-delay: 0.25s; }
+    .stagger-4 { transition-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">CONNACHT <span>BUILDERS</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Galway & Connacht Region</span>
+      <h1>We Build What<br/><span>Others Dream</span></h1>
+      <p>From residential extensions to large commercial developments — Connacht Builders delivers quality craftsmanship on time, every time.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Get a Free Quote</a>
+        <a href="#projects" class="btn-secondary">View Our Work</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num">18+</span>
+        <span class="label">Years Experience</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">340+</span>
+        <span class="label">Projects Completed</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">100%</span>
+        <span class="label">On-Time Delivery</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">4.9★</span>
+        <span class="label">Client Rating</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="reveal">
+      <div class="section-label">What We Do</div>
+      <div class="section-title">Building Services<br/>You Can Trust</div>
+      <div class="section-sub">We handle every stage of your build — from planning permission to final handover — so you don't have to worry about a thing.</div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal stagger-1">
+        <div class="service-icon">🏠</div>
+        <h3>Residential Builds</h3>
+        <p>New homes, extensions, and renovations built to the highest standards with full planning compliance.</p>
+      </div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-icon">🏢</div>
+        <h3>Commercial Construction</h3>
+        <p>Office builds, retail fit-outs, and warehousing — delivered on schedule without disrupting your business.</p>
+      </div>
+      <div class="service-card reveal stagger-3">
+        <div class="service-icon">🔧</div>
+        <h3>Renovations & Refurb</h3>
+        <p>Breathe new life into existing structures with expert refurbishment and modern finishes.</p>
+      </div>
+      <div class="service-card reveal stagger-1">
+        <div class="service-icon">📋</div>
+        <h3>Project Management</h3>
+        <p>End-to-end project management so your build runs smoothly from groundbreaking to completion.</p>
+      </div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-icon">⚡</div>
+        <h3>Electrical & Plumbing</h3>
+        <p>Fully qualified in-house tradespeople mean fewer delays and a single point of contact.</p>
+      </div>
+      <div class="service-card reveal stagger-3">
+        <div class="service-icon">🌿</div>
+        <h3>Sustainable Building</h3>
+        <p>Heat pumps, solar, and high-insulation builds to meet BER A requirements and cut energy bills.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-image reveal-left">
+      <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&auto=format&fit=crop" alt="Construction site" />
+      <div class="about-image-overlay"></div>
+    </div>
+    <div class="about-content reveal-right">
+      <div class="section-label">About Us</div>
+      <div class="section-title">Built on Trust &<br/>Attention to Detail</div>
+      <div class="section-sub">Family-run since 2006, Connacht Builders has grown from a two-man operation into one of the West of Ireland's most respected construction firms.</div>
+      <ul class="check-list">
+        <li>Fully insured & CIRI registered</li>
+        <li>Planning permission support included</li>
+        <li>Fixed-price contracts — no hidden extras</li>
+        <li>Dedicated site manager on every project</li>
+        <li>10-year structural guarantee</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section projects" id="projects">
+    <div class="reveal">
+      <div class="section-label">Portfolio</div>
+      <div class="section-title">Recent Projects</div>
+      <div class="section-sub">A selection of completed builds across Galway, Mayo, and Roscommon.</div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal stagger-1">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop" alt="Home build" />
+        <div class="project-overlay">
+          <div class="project-info">
+            <h4>4-Bed Family Home</h4>
+            <p>Salthill, Galway</p>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal stagger-2">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&auto=format&fit=crop" alt="Commercial build" />
+        <div class="project-overlay">
+          <div class="project-info">
+            <h4>Office Development</h4>
+            <p>Tuam, Co. Galway</p>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal stagger-3">
+        <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&auto=format&fit=crop" alt="Kitchen extension" />
+        <div class="project-overlay">
+          <div class="project-info">
+            <h4>Rear Extension</h4>
+            <p>Castlebar, Co. Mayo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section process">
+    <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+      <div class="section-label">How It Works</div>
+      <div class="section-title">Your Build, Step by Step</div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal stagger-1">
+        <div class="step-num">1</div>
+        <h4>Free Consultation</h4>
+        <p>We visit your site, discuss your vision, and understand your budget.</p>
+      </div>
+      <div class="process-step reveal stagger-2">
+        <div class="step-num">2</div>
+        <h4>Detailed Quote</h4>
+        <p>You receive a fixed-price, itemised quote with no hidden costs.</p>
+      </div>
+      <div class="process-step reveal stagger-3">
+        <div class="step-num">3</div>
+        <h4>We Build It</h4>
+        <p>Our team gets to work — you get weekly progress updates.</p>
+      </div>
+      <div class="process-step reveal stagger-4">
+        <div class="step-num">4</div>
+        <h4>Handover</h4>
+        <p>Final walkthrough, snagging completed, keys in hand.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section reveal" id="contact">
+    <h2>Ready to Start Your Project? Let's Talk.</h2>
+    <a href="tel:0851234567" class="btn-dark">📞 Call 085 123 4567</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="nav-logo">CONNACHT <span style="color:var(--yellow)">BUILDERS</span></div>
+    <span>© 2026 Connacht Builders Ltd · info@connachtbuilders.ie</span>
+    <span>Galway · Mayo · Roscommon</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav shadow on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hero bg subtle zoom on load
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+
+    // Counter animation for hero stats
+    function animateCounter(el, target, suffix) {
+      let count = 0;
+      const step = Math.ceil(target / 40);
+      const interval = setInterval(() => {
+        count = Math.min(count + step, target);
+        el.textContent = count + suffix;
+        if (count >= target) clearInterval(interval);
+      }, 40);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solas — Contemporary Irish Restaurant</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAF7F2;
+      --warm: #F0E8DA;
+      --dark: #1C1A17;
+      --mid: #2E2B26;
+      --accent: #C8873A;
+      --green: #4A6741;
+      --text: #3A3530;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      height: 72px;
+      background: rgba(28,26,23,0.97);
+      backdrop-filter: blur(12px);
+      transition: height 0.3s;
+    }
+    nav.compact { height: 60px; }
+    .nav-logo {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: rgba(250,247,242,0.65);
+      text-decoration: none;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-reserve {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 2px;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.35);
+      transform: scale(1.08);
+      transition: transform 10s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 40px;
+    }
+    .hero-tagline {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeIn 1s 0.4s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.7s forwards;
+    }
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+      margin: 0 auto 28px;
+      opacity: 0;
+      animation: fadeIn 1s 1s forwards;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s forwards;
+    }
+    .hero-cta-wrap {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1s 1.5s forwards;
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      padding: 16px 36px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-accent:hover { background: #B57A30; transform: translateY(-2px); }
+    .btn-outline-white {
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.8);
+      padding: 16px 36px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: var(--accent); color: var(--accent); }
+    .scroll-cue {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 1s 2s forwards;
+    }
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.4; }
+    }
+
+    /* ---- REVEAL BASE ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0; transform: translateX(-36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    /* ---- INTRO STRIP ---- */
+    .intro {
+      background: var(--dark);
+      padding: 80px 80px;
+      text-align: center;
+    }
+    .intro-inner { max-width: 700px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .intro h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--cream);
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+    .intro p {
+      color: rgba(250,247,242,0.55);
+      line-height: 1.9;
+      font-style: italic;
+    }
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      margin: 28px auto;
+    }
+
+    /* ---- MENU PREVIEW ---- */
+    .menu-section { padding: 100px 80px; }
+    .menu-header { text-align: center; margin-bottom: 64px; }
+    .menu-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .menu-header p { color: #888; font-style: italic; }
+
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 48px;
+      border: 1px solid #DDD6CC;
+      border-radius: 4px;
+      overflow: hidden;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      padding: 12px 32px;
+      background: none;
+      border: none;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid #DDD6CC;
+    }
+    .tab-btn:last-child { border-right: none; }
+    .tab-btn.active, .tab-btn:hover { background: var(--dark); color: var(--cream); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .menu-item {
+      padding: 24px 32px;
+      border-bottom: 1px solid #E8E1D5;
+      border-right: 1px solid #E8E1D5;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      transition: background 0.2s;
+    }
+    .menu-item:nth-child(even) { border-right: none; }
+    .menu-item:nth-last-child(-n+2) { border-bottom: none; }
+    .menu-item:hover { background: var(--warm); }
+    .menu-item h4 { font-size: 1rem; color: var(--dark); margin-bottom: 6px; }
+    .menu-item p { font-size: 0.85rem; color: #888; line-height: 1.5; font-style: italic; }
+    .price {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---- ATMOSPHERE ---- */
+    .atmosphere {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+    }
+    .atm-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .atm-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .atm-image:hover img { transform: scale(1.04); }
+    .atm-content {
+      background: var(--mid);
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .atm-content .section-eyebrow { text-align: left; }
+    .atm-content h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .atm-content p {
+      color: rgba(250,247,242,0.55);
+      line-height: 1.9;
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+    .atm-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+    .atm-detail { display: flex; flex-direction: column; gap: 4px; }
+    .atm-detail .label {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .atm-detail .value {
+      font-size: 0.95rem;
+      color: rgba(250,247,242,0.75);
+    }
+
+    /* ---- TESTIMONIALS ---- */
+    .testimonials { padding: 100px 80px; background: var(--warm); text-align: center; }
+    .test-header { margin-bottom: 60px; }
+    .test-header h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      color: var(--dark);
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .test-card {
+      background: #fff;
+      padding: 36px 32px;
+      border-radius: 2px;
+      text-align: left;
+      position: relative;
+    }
+    .test-card::before {
+      content: '"';
+      position: absolute;
+      top: 16px;
+      left: 28px;
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 16px; }
+    .test-card p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .reviewer {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .reviewer-sub {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    /* ---- RESERVATION CTA ---- */
+    .reserve-cta {
+      background: var(--green);
+      padding: 100px 80px;
+      text-align: center;
+    }
+    .reserve-cta .section-eyebrow { color: rgba(250,247,242,0.6); }
+    .reserve-cta h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+    .reserve-cta p {
+      color: rgba(250,247,242,0.6);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+    .reserve-form {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .reserve-input {
+      flex: 1;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .reserve-input::placeholder { color: rgba(255,255,255,0.45); }
+    .reserve-input:focus { border-color: rgba(255,255,255,0.6); }
+    .btn-reserve {
+      background: var(--cream);
+      color: var(--green);
+      padding: 16px 32px;
+      border-radius: 2px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s;
+    }
+    .btn-reserve:hover { transform: translateY(-2px); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--dark);
+      padding: 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      color: rgba(250,247,242,0.4);
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.8rem;
+    }
+    footer .nav-logo { font-size: 1.2rem; color: var(--cream); letter-spacing: 6px; }
+    footer .center { text-align: center; }
+    footer .right { text-align: right; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">S<span>O</span>LAS</div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#atmosphere">Our Story</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#reserve" class="nav-reserve">Reserve a Table</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+      <div class="hero-tagline">Contemporary Irish Cuisine · Galway City</div>
+      <h1>Solas</h1>
+      <div class="hero-divider"></div>
+      <p>Where the flavours of the West of Ireland meet modern culinary craft. Locally sourced, lovingly prepared.</p>
+      <div class="hero-cta-wrap">
+        <a href="#reserve" class="btn-accent">Reserve a Table</a>
+        <a href="#menu" class="btn-outline-white">View the Menu</a>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro-inner reveal">
+      <div class="section-eyebrow">Est. 2018 · Galway</div>
+      <h2>"Good food is the foundation of genuine happiness."</h2>
+      <div class="divider"></div>
+      <p>Solas — meaning 'light' in Irish — is a celebration of the West's rich larder. From Connemara lamb to Galway Bay oysters, every dish tells a story of place and season.</p>
+    </div>
+  </section>
+
+  <!-- MENU PREVIEW -->
+  <section class="menu-section" id="menu">
+    <div class="menu-header reveal">
+      <div class="section-eyebrow">Seasonal Menu</div>
+      <h2>From Our Kitchen</h2>
+      <div class="divider"></div>
+      <p>Our menus change with the seasons. Below is a selection from this month's offerings.</p>
+    </div>
+
+    <div class="menu-tabs reveal">
+      <button class="tab-btn active">Starters</button>
+      <button class="tab-btn">Mains</button>
+      <button class="tab-btn">Desserts</button>
+      <button class="tab-btn">Wine</button>
+    </div>
+
+    <div class="menu-grid reveal">
+      <div class="menu-item stagger-1">
+        <div>
+          <h4>Galway Bay Oysters</h4>
+          <p>Native rock oysters, cucumber mignonette, seaweed cracker</p>
+        </div>
+        <span class="price">€16</span>
+      </div>
+      <div class="menu-item stagger-2">
+        <div>
+          <h4>Connemara Smoked Salmon</h4>
+          <p>House-cured, soda bread, crème fraîche, pickled shallot</p>
+        </div>
+        <span class="price">€14</span>
+      </div>
+      <div class="menu-item stagger-3">
+        <div>
+          <h4>Wild Mushroom Velouté</h4>
+          <p>Foraged forest mushrooms, truffle oil, sourdough crouton</p>
+        </div>
+        <span class="price">€11</span>
+      </div>
+      <div class="menu-item stagger-4">
+        <div>
+          <h4>Burren Goat's Cheese</h4>
+          <p>Honey-walnut dressing, beetroot, watercress</p>
+        </div>
+        <span class="price">€12</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATMOSPHERE -->
+  <div class="atmosphere" id="atmosphere">
+    <div class="atm-image reveal-left">
+      <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&auto=format&fit=crop" alt="Restaurant interior" />
+    </div>
+    <div class="atm-content reveal-right">
+      <div class="section-eyebrow">Our Story</div>
+      <h2>A Place to Linger Over Food & Conversation</h2>
+      <p>Solas was born from a simple idea: that dining out should feel like a genuine occasion. Our room is warm, unhurried, and designed to make every table feel like the best seat in the house.</p>
+      <div class="atm-details">
+        <div class="atm-detail">
+          <span class="label">Open</span>
+          <span class="value">Tues – Sun</span>
+        </div>
+        <div class="atm-detail">
+          <span class="label">Lunch</span>
+          <span class="value">12:30 – 2:30pm</span>
+        </div>
+        <div class="atm-detail">
+          <span class="label">Dinner</span>
+          <span class="value">6:00 – 10:00pm</span>
+        </div>
+        <div class="atm-detail">
+          <span class="label">Location</span>
+          <span class="value">Quay St, Galway</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="test-header reveal">
+      <div class="section-eyebrow">What Guests Say</div>
+      <h2>Honest Words from Our Tables</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal stagger-1">
+        <div class="stars">★★★★★</div>
+        <p>An absolutely stunning meal. The lamb was the best I've had in Ireland — perfectly cooked and beautifully presented. Staff were warm without being intrusive.</p>
+        <div class="reviewer">Siobhán M.</div>
+        <div class="reviewer-sub">Galway · Google Review</div>
+      </div>
+      <div class="test-card reveal stagger-2">
+        <div class="stars">★★★★★</div>
+        <p>We had our anniversary dinner here and it was flawless from start to finish. The tasting menu is worth every penny. Already booked our next visit.</p>
+        <div class="reviewer">Ciarán & Aoife T.</div>
+        <div class="reviewer-sub">Dublin · Google Review</div>
+      </div>
+      <div class="test-card reveal stagger-3">
+        <div class="stars">★★★★★</div>
+        <p>Exceptional food, stunning wine list, and an atmosphere that's relaxed yet refined. The seafood chowder alone is worth making the trip to Galway.</p>
+        <div class="reviewer">Michael F.</div>
+        <div class="reviewer-sub">Cork · TripAdvisor</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION CTA -->
+  <section class="reserve-cta" id="reserve">
+    <div class="reveal">
+      <div class="section-eyebrow">Reservations</div>
+      <h2>Join Us for Dinner</h2>
+      <p>Tables fill quickly — we recommend booking at least a week in advance.</p>
+      <form class="reserve-form" onsubmit="return false;">
+        <input class="reserve-input" type="text" placeholder="Your name" />
+        <input class="reserve-input" type="date" />
+        <input class="reserve-input" type="number" placeholder="Guests" min="1" max="20" style="max-width:120px" />
+        <button class="btn-reserve">Book Table</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="nav-logo">SOLAS</div>
+    <div class="center">
+      Quay Street, Galway City · reservations@solasrestaurant.ie<br/>
+      +353 91 123 456
+    </div>
+    <div class="right">© 2026 Solas Restaurant<br/>All rights reserved</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav compact on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('compact', window.scrollY > 60);
+    });
+
+    // Hero bg zoom in on load
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+
+    // Menu tabs
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
